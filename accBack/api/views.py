@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import filters
+from paynow import Paynow
 
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -168,39 +169,30 @@ def getStores(request):
     return Response(serializer.data)
 
 
-class PatchStoreView(generics.ListAPIView):
+class SearchStoreView(generics.ListAPIView):
 
     queryset = Store.objects.all()
     serializer_class = StoreSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['^name']
 
-    # def get_queryset(self):
-    #     sdg_goals = self.request.query_params.get('sdg_goals', None)
-    #     print(sdg_goals)
-    #     return Store.objects.filter(sdg_goals=sdg_goals)
+
+class PatchStoreView(generics.ListAPIView):
 
 
-    # def get(self, request, *args, **kwargs):
-    #     qs = Store.objects.all()
-    #     serializer = StoreSerializer(qs, many=True)
-    #     return Response(serializer.data)
+    def patch(self, request, pk):
+        qs = Store.objects.get(id=pk)
+        data = request.data
 
+        qs.name = data.get('name', qs.name)
+        qs.sdg_goals = data.get('sdg_goals', qs.sdg_goals)
+        qs.store_logo = data.get('store_logo', qs.store_logo)
+        qs.desc = data.get('desc', qs.desc)
 
+        qs.save()
+        serializer = StoreSerializer(qs)
 
-    # def patch(self, request, pk):
-    #     qs = Store.objects.get(id=pk)
-    #     data = request.data
-
-    #     qs.name = data.get('name', qs.name)
-    #     qs.sdg_goals = data.get('sdg_goals', qs.sdg_goals)
-    #     qs.store_logo = data.get('store_logo', qs.store_logo)
-    #     qs.desc = data.get('desc', qs.desc)
-
-    #     qs.save()
-    #     serializer = StoreSerializer(qs)
-
-    #     return Response(serializer.data)
+        return Response(serializer.data)
 
 
 
@@ -225,6 +217,14 @@ class PatchStoreView(generics.ListAPIView):
 #         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+
+
+paynow = Paynow(
+    '12884', 
+    '3fba233a-b62e-429a-a9ea-611ad6273e9a',
+    'http://google.com', 
+    'http://google.com'
+    )
 
 
 

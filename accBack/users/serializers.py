@@ -40,10 +40,13 @@ class RegisterSerializer(serializers.ModelSerializer):
 		# profile_user = Profile.objects.get(user = user)
 		
 		if validated_data['last_name'] == 'vendor':
+
 			user.profile.is_vendor = True
+			user.save()
 			print('Vendor')
 		else:
 			user.profile.is_customer = True
+			user.save()
 			print('Customer')
 
 		return user

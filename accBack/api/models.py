@@ -104,14 +104,19 @@ class Service(models.Model):
 
 class Order(models.Model):
 
-
 	customer_name = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-	payment_type = models.CharField(max_length=255, null=True, blank=True)
+	payment_type = models.CharField(max_length=50, null=True, blank=True)
 	quantity= models.IntegerField(null=True, blank=True, default=0)
-	registered = models.DateTimeField(auto_now_add=True)
+	created = models.DateTimeField(auto_now_add=True)
 	status = models.BooleanField(default=False, null=True, blank=True)
-	products = models.CharField(max_length=255, null=True, blank=True)
-	product_owner = models.CharField(max_length=200, null=True, blank=True)
+	products = models.TextField(null=True, blank=True)
+	product_owner = models.CharField(max_length=255, null=True, blank=True)
+	payer_email = models.EmailField(max_length=150, null=True, blank=True)
+	payer_name = models.CharField(max_length=255, null=True, blank=True)
+	payer_id  = models.CharField(max_length=255, null=True, blank=True)
+	purchase_amount = models.FloatField(null=True, blank=True, default=0.0)
+	shipping_address = models.TextField(null=True, blank=True,)
+	shipping_option = models.CharField(max_length=255, null=True, blank=True)
 
 	def __str__(self):
 		return str(self.id)

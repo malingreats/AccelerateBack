@@ -10,6 +10,7 @@ djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 pillow = "*"
 django-filter = "*"
+paynow = "*"
 
 [dev-packages]
 

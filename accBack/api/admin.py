@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Store
+from .models import Product, Store, Service
 
 
 # from rest_framework_simplejwt.token_blacklist import models
@@ -20,6 +20,14 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ("name",)
     
     list_display = ("store", "id","name", "desc", "category", "price", "discount", "quantity", "tags", "rating", "date_created", "is_stocked")
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    search_fields = ("name",)
+    
+    list_display = ("store", "id","name", "desc", "category", "price", "discount", "tags", "rating", "date_created", "availability", "service_image")
+
 
 
 @admin.register(Store)
