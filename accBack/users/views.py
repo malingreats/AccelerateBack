@@ -3,13 +3,27 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .serializers import RegisterSerializer, ProfileSerializer
-from .models import Profile
+from .serializers import RegisterSerializer, ProfileSerializer, BillingAddressSerializer
+from .models import Profile, BillingAddress
 
 class RegisterView(generics.CreateAPIView):
 	queryset = User.objects.all()
 	# permission_classes = (AllowAny)
 	serializer_class = RegisterSerializer
+	
+
+class DeleteUserView(APIView):
+
+	def delete(self, request, pk):
+		qs = User.objects.get(id=pk)
+		qs.delete()
+		return Response('User Deleted')
+
+class RetrieveUserView(APIView):
+	def get(self, request, *args, pk):
+		qs = User.objects.get(id=pk)
+		serializer = RegisterSerializer(qs, many=False)
+		return Response(serializer.data)
 
 
 class ProfilesView(APIView):
@@ -56,8 +70,13 @@ class ProfileView(APIView):
 		return Response(serializer.data)
 
 
-# class VendorProfilesView(APIView):
-# 	serializer_class = ProfileSerializer
+class VendorProfilesView(generics.ListAPIView):
+	serializer_class = ProfileSerializer
+
+	def get_queryset(self):
+		is_vendor = self.request.query_params.get('is_vendor', None)
+		print(is_vendor)
+		return Profile.objects.filter(is_vendor=is_vendor)
 
 # 	def get_queryset(self):
 # 		queryset = Profile.objects.all()
@@ -65,15 +84,52 @@ class ProfileView(APIView):
 # 		if is_vendor is not None:
 # 			queryset = queryset.filter(is_vendor=is_vendor)
 # 		return queryset
-		# serializer = ProfileSerializer(queryset, many=True)
-		# return Response(serializer.data)
+# 		serializer = ProfileSerializer(queryset, many=True)
+# 		return Response(serializer.data)
 
-class VendorProfilesView(generics.ListAPIView):
-	queryset = Profile.objects.all()
-	serializer_class = ProfileSerializer
-	filterset_fields = ('location',)
+# class VendorProfilesView(generics.ListAPIView):
+# 	queryset = Profile.objects.all()
+# 	serializer_class = ProfileSerializer
+# 	filterset_fields = ('location',)
+
+# 	def get(self, request, *args, **kwargs):
+# 		qs = Profile.objects.all()
+# 		serializer = ProfileSerializer(qs, many=True)
+# 		return Response(serializer.data)
+
+
+
+class BillingAddressView(APIView):
 
 	def get(self, request, *args, **kwargs):
-		qs = Profile.objects.all()
-		serializer = ProfileSerializer(qs, many=True)
+		qs = BillingAddress.objects.all()
+		serializer = BillingAddressSerializer(qs, many=True)
 		return Response(serializer.data)
+
+	def post(self, request, format=None):
+		serializer = BillingAddressSerializer(data = request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		else:
+			return Response(serializer.error)
+
+	def patch(self, request, pk):
+		qs = BillingAddress.objects.get(address_id=pk)
+		data = request.data
+
+		qs.destination = data.get('destination', qs.destination)
+		qs.building = data.get('building', qs.building)
+		qs.street = data.get('street', qs.street)
+		qs.country = data.get('country', qs.country)
+		qs.post = data.get('post', qs.post)
+		qs.city = data.get('city', qs.city)
+		qs.state = data.get('state', qs.state)
+		qs.phone = data.get('phone', qs.phone)
+		qs.isDefault = data.get('isDefault', qs.isDefault)
+
+		qs.save()
+		serializer = BillingAddressSerializer(qs)
+
+		return Response(serializer.data)
+

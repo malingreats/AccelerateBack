@@ -1,9 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import timedelta
 from users.models import Profile
+
+def upload_to(instance, filename):
+	return filename.format(filename=filename)
 
 class Store(models.Model):
 
@@ -16,10 +20,13 @@ class Store(models.Model):
 		(SDG_Three, 'SDG_Three'),
 	]   
 
-	vendor = models.ForeignKey(Profile,null=True, on_delete=models.CASCADE)
+	vendor = models.OneToOneField(Profile, null=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=128,blank=False)
 	category = models.CharField(max_length=255, null=True, blank=True)
+	desc = models.CharField(max_length=255, null=True, blank=True)
 	sdg_goals = models.CharField(max_length=35,choices=SDG_GOALS, default = SDG_One)
+	store_logo = models.ImageField(upload_to=upload_to, blank=True, null=True)
+	rating = models.FloatField(null=True, blank=True, default=0.0)
 
 	def __str__(self):
 		return str(self.name)
@@ -48,18 +55,64 @@ class Product(models.Model):
 		(tag3, 'tag3'),
 	]    
 
-	store = models.ForeignKey(Store,null=True, on_delete=models.CASCADE)
-	owner = models.ForeignKey(Profile,null=True, on_delete=models.CASCADE)
+	store = models.ForeignKey(Store, null=True, on_delete=models.CASCADE)
+	owner = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=255, null=True, blank=True)
 	desc = models.CharField(max_length=255, null=True, blank=True)
 	category = models.CharField(max_length=255, null=True, blank=True)
 	price  = models.FloatField(null=True, blank=True, default=0.0)
 	discount = models.FloatField(null=True, blank=True, default=0.0)
 	quantity = models.IntegerField(null=True, blank=True, default=0)
-	tags = models.CharField(max_length=35,choices=TAGS, default = tag1)
+	tags = models.CharField(max_length=35,choices=TAGS, default = tag1, null=True, blank=True,)
 	rating = models.FloatField(null=True, blank=True, default=0.0)
 	date_created = models.DateTimeField(auto_now_add=True)
-	is_stocked = models.BooleanField(default=False)
+	is_stocked = models.BooleanField(default=True, blank=True)
+	product_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
 
 	def __str__(self):
 		return str(self.name)
+
+
+class Service(models.Model):
+
+	tag1 = 'tag1'
+	tag2 = 'tag2'
+	tag3 = 'tag3'
+	TAGS = [
+		(tag2, 'tag2'),
+		(tag1, 'tag1'),
+		(tag3, 'tag3'),
+	]    
+
+	store = models.ForeignKey(Store, null=True, on_delete=models.CASCADE)
+	owner = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
+	name = models.CharField(max_length=255, null=True, blank=True)
+	desc = models.CharField(max_length=255, null=True, blank=True)
+	category = models.CharField(max_length=255, null=True, blank=True)
+	price  = models.FloatField(null=True, blank=True, default=0.0)
+	discount = models.FloatField(null=True, blank=True, default=0.0)
+	tags = models.CharField(max_length=35,choices=TAGS, default = tag1, null=True, blank=True,)
+	rating = models.FloatField(null=True, blank=True, default=0.0)
+	date_created = models.DateTimeField(auto_now_add=True)
+	availability = models.BooleanField(default=True, blank=True)
+	service_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+
+
+	def __str__(self):
+		return str(self.name)
+
+
+class Order(models.Model):
+
+
+	customer_name = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+	payment_type = models.CharField(max_length=255, null=True, blank=True)
+	quantity= models.IntegerField(null=True, blank=True, default=0)
+	registered = models.DateTimeField(auto_now_add=True)
+	status = models.BooleanField(default=False, null=True, blank=True)
+	products = models.CharField(max_length=255, null=True, blank=True)
+	product_owner = models.CharField(max_length=200, null=True, blank=True)
+
+	def __str__(self):
+		return str(self.id)
+
