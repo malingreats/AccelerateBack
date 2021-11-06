@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import MyTokenObtainPairView, ParticularProductsView
+from .views import MyTokenObtainPairView, ParticularProductsView, PatchStoreView
 
 
 from rest_framework_simplejwt.views import (
@@ -30,7 +30,8 @@ urlpatterns = [
 
 
 	path('stores/', views.getStores, name='stores'),
-	path('patch-store/<str:pk>/', views.patchStore, name='patch-store'),
+	path('patch-store/', PatchStoreView.as_view(), name='patch-store'),
+	# path('patch-store/<str:pk>/', views.patchStore, name='patch-store'),
 
 
 	path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
