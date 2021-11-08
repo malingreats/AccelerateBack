@@ -13,7 +13,7 @@ class Profile(models.Model):
 	full_name = models.CharField(max_length=200, null=True, blank=True)
 	is_active = models.BooleanField(('active'), default=True)
 	is_staff = models.BooleanField(('staff'), default=False)
-	is_vendor = models.BooleanField(null=True, default=True)
+	is_vendor = models.BooleanField(null=True, default=False)
 	is_customer = models.BooleanField(null=True, default=False)
 	time_added = models.DateTimeField(auto_now_add=True, null=True)
 	profile_image = models.ImageField(upload_to=upload_to, blank=True, null=True)

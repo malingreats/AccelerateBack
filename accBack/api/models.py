@@ -11,20 +11,20 @@ def upload_to(instance, filename):
 
 class Store(models.Model):
 
-	SDG_One = 'SDG_One'
-	SDG_Two = 'SDG_Two'
-	SDG_Three = 'SDG_Three'
-	SDG_GOALS = [
-		(SDG_Two, 'SDG_Two'),
-		(SDG_One, 'SDG_One'),
-		(SDG_Three, 'SDG_Three'),
-	]   
+	# SDG_One = 'SDG_One'
+	# SDG_Two = 'SDG_Two'
+	# SDG_Three = 'SDG_Three'
+	# SDG_GOALS = [
+	# 	(SDG_Two, 'SDG_Two'),
+	# 	(SDG_One, 'SDG_One'),
+	# 	(SDG_Three, 'SDG_Three'),
+	# ]   
 
 	vendor = models.OneToOneField(Profile, null=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=128,blank=False)
 	category = models.CharField(max_length=255, null=True, blank=True)
 	desc = models.CharField(max_length=255, null=True, blank=True)
-	sdg_goals = models.CharField(max_length=35,choices=SDG_GOALS, default = SDG_One)
+	sdg_goals = models.CharField(max_length=75,null=True, blank=True, default = 'One')
 	store_logo = models.ImageField(upload_to=upload_to, blank=True, null=True)
 	rating = models.FloatField(null=True, blank=True, default=0.0)
 

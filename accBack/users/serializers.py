@@ -43,11 +43,11 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 			user.profile.is_vendor = True
 			user.save()
-			print('Vendor')
+			print('Vendor', user.profile.is_vendor)
 		else:
 			user.profile.is_customer = True
 			user.save()
-			print('Customer')
+			print('Customer', user.profile.is_customer)
 
 		return user
 

@@ -22,7 +22,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
 
         # custom claims
-        token['username'] = user.profile.full_name
+        token['username'] = user.username
         token['phone'] = user.profile.phone
         token['location'] = user.profile.location
         token['bio'] = user.profile.bio
@@ -188,6 +188,7 @@ class PatchStoreView(generics.ListAPIView):
         qs.sdg_goals = data.get('sdg_goals', qs.sdg_goals)
         qs.store_logo = data.get('store_logo', qs.store_logo)
         qs.desc = data.get('desc', qs.desc)
+        qs.category = data.get('category', qs.category)
 
         qs.save()
         serializer = StoreSerializer(qs)
@@ -225,6 +226,13 @@ paynow = Paynow(
     'http://google.com', 
     'http://google.com'
     )
+
+payment = paynow.create_payment('Order #100', 'test@example.com')
+
+payment.add('Bananas', 2.50)
+payment.add('Apples', 3.40)
+
+response = paynow.send(payment)
 
 
 
