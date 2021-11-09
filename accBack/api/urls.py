@@ -28,7 +28,7 @@ urlpatterns = [
 
 	# path('order/<str:pk>', views.getOrder, name='order'),
 	# path('orders/', views.getOrders, name='orders'),
-	# path('add-order/', views.addOrder, name='add-order'),
+	path('add-order/', views.addOrder, name='add-order'),
 	# path('delete-order/<str:pk>/', views.deleteOrder, name='delete-order'),
 	path('all-vendor-orders/', views.getVendorOrders, name='all-vendor-orders'),
 	path('vendor-order/', ParticularOrdersView.as_view(), name='vendor-order'),

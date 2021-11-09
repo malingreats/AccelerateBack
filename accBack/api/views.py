@@ -149,16 +149,6 @@ class ParticularServicesView(generics.ListAPIView):
 #     serializer = OrderSerializer(qs, many=False)
 #     return Response(serializer.data)
 
-
-# @api_view(['POST'])
-# def addOrder(request):
-#     serializer = OrderSerializer(data = request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#     else:
-#         return Response('serializer not valid')
-#     return Response(serializer.data)
-
 # @api_view(['DELETE'])
 # def deleteOrder(request, pk):
 #     order = Order.objects.get(id=pk)
@@ -167,6 +157,15 @@ class ParticularServicesView(generics.ListAPIView):
 
 
 
+
+@api_view(['POST'])
+def addOrder(request):
+    serializer = VendorOrderSerializer(data = request.data)
+    if serializer.is_valid():
+        serializer.save()
+    else:
+        return Response('serializer not valid')
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def getVendorOrders(request):
