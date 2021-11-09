@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Store, Service, Order
+from .models import Product, Store, Service, StoreOrder, VendorOrder
 
 
 # from rest_framework_simplejwt.token_blacklist import models
@@ -28,11 +28,27 @@ class ServiceAdmin(admin.ModelAdmin):
     
     list_display = ("store", "id","name", "desc", "category", "price", "discount", "tags", "rating", "date_created", "availability", "service_image")
 
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+# @admin.register(Order)
+# class OrderAdmin(admin.ModelAdmin):
+#     search_fields = ("customer_name",)
+    
+#     list_display = ("customer_name", "id","payment_type", "quantity", "created", "status", "products", "product_owner", "payer_email", "payer_name", "payer_id", "purchase_amount")
+
+
+
+
+@admin.register(StoreOrder)
+class StoreOrderAdmin(admin.ModelAdmin):
     search_fields = ("customer_name",)
     
-    list_display = ("customer_name", "id","payment_type", "quantity", "created", "status", "products", "product_owner", "payer_email", "payer_name", "payer_id", "purchase_amount")
+    list_display = ("customer_name", "id","payment_type", "created", "total_purchase_amount")
+
+
+@admin.register(VendorOrder)
+class VendorOrderAdmin(admin.ModelAdmin):
+    search_fields = ("payee_name",)
+    
+    list_display = ("payee_name", "id","payment_type", "quantity", "created", "status", "products", "payer_email", "payer_name", "payer_id", "purchase_amount")
 
 
 

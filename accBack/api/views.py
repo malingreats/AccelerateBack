@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from django.http import JsonResponse
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -12,8 +13,8 @@ from paynow import Paynow
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .serializers import ProductSerializer, OrderSerializer, ServiceSerializer, StoreSerializer
-from api.models import Product, Order, Service, Store
+from .serializers import ProductSerializer, ServiceSerializer, StoreSerializer, VendorOrderSerializer
+from api.models import Product, Service, Store, VendorOrder
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -51,7 +52,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 def getProducts(request):
     user = request.user
     products = user.profile.product_set.all()
-    serializer = ProductSerializer(products, many=True)
+    serializer = ProductSerializer(products, many=True) 
     return Response(serializer.data)
 
 @api_view(['GET'])
@@ -122,40 +123,89 @@ def addService(request):
     return Response(serializer.data)
 
 
+class ParticularServicesView(generics.ListAPIView):
+    serializer_class = ServiceSerializer
+
+    def get_queryset(self):
+        store = self.request.query_params.get('store', None)
+        print(store)
+        return Service.objects.filter(store=store)
 
 
+
+
+
+
+# @api_view(['GET'])
+# def getOrders(request):
+#     qs = Order.objects.all()
+#     serializer = OrderSerializer(qs, many=True)
+#     return Response(serializer.data)
+
+
+# @api_view(['GET'])
+# def getOrder(request, pk):
+#     qs = Order.objects.get(id=pk)
+#     serializer = OrderSerializer(qs, many=False)
+#     return Response(serializer.data)
+
+
+# @api_view(['POST'])
+# def addOrder(request):
+#     serializer = OrderSerializer(data = request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#     else:
+#         return Response('serializer not valid')
+#     return Response(serializer.data)
+
+# @api_view(['DELETE'])
+# def deleteOrder(request, pk):
+#     order = Order.objects.get(id=pk)
+#     order.delete()
+#     return Response('Order Deleted')
 
 
 
 
 @api_view(['GET'])
-def getOrders(request):
-    qs = Order.objects.all()
-    serializer = OrderSerializer(qs, many=True)
+def getVendorOrders(request):
+    qs = VendorOrder.objects.all()
+    serializer = VendorOrderSerializer(qs, many=True)
     return Response(serializer.data)
 
 
-@api_view(['GET'])
-def getOrder(request, pk):
-    qs = Order.objects.get(id=pk)
-    serializer = OrderSerializer(qs, many=False)
-    return Response(serializer.data)
+class DashboardOrderView(generics.ListAPIView):
+    serializer_class = VendorOrderSerializer
+
+    def get_queryset(self):
+        payee_name = self.request.query_params.get('payee_name', None)
+        print(payee_name)
+        return VendorOrder.objects.filter(payee_name=payee_name)
 
 
-@api_view(['POST'])
-def addOrder(request):
-    serializer = OrderSerializer(data = request.data)
-    if serializer.is_valid():
-        serializer.save()
-    else:
-        return Response('serializer not valid')
-    return Response(serializer.data)
+class ParticularOrdersView(generics.ListAPIView):
+    serializer_class = VendorOrderSerializer
 
-@api_view(['DELETE'])
-def deleteOrder(request, pk):
-    order = Order.objects.get(id=pk)
-    order.delete()
-    return Response('Order Deleted')
+    def get_queryset(self):
+        payee_name = self.request.query_params.get('payee_name', None)
+        print(payee_name)
+        results = VendorOrder.objects.filter(payee_name=payee_name)
+
+        total = 0.0
+        print(results)
+        for result in results:
+            # print(result.purchase_amount)
+            total = 0.0
+            total += result.purchase_amount
+        total = str(total)
+        print('total')
+        print(total)
+        # return total
+        serializer = total
+        return total
+
+
 
 
 
@@ -168,6 +218,12 @@ def getStores(request):
     serializer = StoreSerializer(qs, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def getSingleStore(request, pk):
+    qs = Store.objects.get(id=pk)
+    serializer = StoreSerializer(qs, many=False) 
+    return Response(serializer.data)
+
 
 class SearchStoreView(generics.ListAPIView):
 
@@ -175,6 +231,13 @@ class SearchStoreView(generics.ListAPIView):
     serializer_class = StoreSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['^name']
+
+class SearchSDGStoreView(generics.ListAPIView):
+
+    queryset = Store.objects.all()
+    serializer_class = StoreSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['^sdg_goals']
 
 
 class PatchStoreView(generics.ListAPIView):
@@ -220,19 +283,19 @@ class PatchStoreView(generics.ListAPIView):
 
 
 
-paynow = Paynow(
-    '12884', 
-    '3fba233a-b62e-429a-a9ea-611ad6273e9a',
-    'http://google.com', 
-    'http://google.com'
-    )
+# paynow = Paynow(
+#     '12884', 
+#     '3fba233a-b62e-429a-a9ea-611ad6273e9a',
+#     'http://google.com', 
+#     'http://google.com'
+#     )
 
-payment = paynow.create_payment('Order #100', 'test@example.com')
+# payment = paynow.create_payment('Order #100', 'test@example.com')
 
-payment.add('Bananas', 2.50)
-payment.add('Apples', 3.40)
+# payment.add('Bananas', 2.50)
+# payment.add('Apples', 3.40)
 
-response = paynow.send(payment)
+# response = paynow.send(payment)
 
 
 

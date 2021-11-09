@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import MyTokenObtainPairView, ParticularProductsView, PatchStoreView, SearchStoreView
+from .views import MyTokenObtainPairView, ParticularProductsView, ParticularServicesView, PatchStoreView, SearchStoreView, SearchSDGStoreView, ParticularOrdersView, DashboardOrderView
 
 
 from rest_framework_simplejwt.views import (
@@ -20,19 +20,26 @@ urlpatterns = [
 
 
 	path('services', views.getServices, name='services'),
+	path('part-services/', ParticularServicesView.as_view(), name='part-services'),
 	path('all-services', views.getAllServices, name='all-services'),
 	path('delete-service/<str:pk>/', views.deleteService, name='delete-service'),
 	path('add-service/', views.addService, name='add-service'),
 
 
-	path('order/<str:pk>', views.getOrder, name='order'),
-	path('orders/', views.getOrders, name='orders'),
-	path('add-order/', views.addOrder, name='add-order'),
-	path('delete-order/<str:pk>/', views.deleteOrder, name='delete-order'),
+	# path('order/<str:pk>', views.getOrder, name='order'),
+	# path('orders/', views.getOrders, name='orders'),
+	# path('add-order/', views.addOrder, name='add-order'),
+	# path('delete-order/<str:pk>/', views.deleteOrder, name='delete-order'),
+	path('all-vendor-orders/', views.getVendorOrders, name='all-vendor-orders'),
+	path('vendor-order/', ParticularOrdersView.as_view(), name='vendor-order'),
+	path('dash-vendor-order/', DashboardOrderView.as_view(), name='dash-vendor-order'),
+
 
 
 	path('stores/', views.getStores, name='stores'),
+	path('single-store/<str:pk>', views.getSingleStore, name='single-store'),
 	path('search-store/', SearchStoreView.as_view(), name='search-store'),
+	path('search-sdg-store/', SearchSDGStoreView.as_view(), name='search-sdg-store'),
 	path('patch-store/<str:pk>/', views.PatchStoreView.as_view(), name='patch-store'),
 
 

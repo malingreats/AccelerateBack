@@ -69,6 +69,14 @@ class ProfileView(APIView):
 
 		return Response(serializer.data)
 
+class ParticularProfileView(generics.ListAPIView):
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        user = self.request.query_params.get('user', None)
+        print(user)
+        return Profile.objects.filter(user=user)
+
 
 class VendorProfilesView(generics.ListAPIView):
 	serializer_class = ProfileSerializer
@@ -132,4 +140,8 @@ class BillingAddressView(APIView):
 		serializer = BillingAddressSerializer(qs)
 
 		return Response(serializer.data)
+
+
+
+
 

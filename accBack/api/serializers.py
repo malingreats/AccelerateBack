@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Product, Order, Service, Store
+from .models import Product,Service, Store, StoreOrder, VendorOrder
 
 class ProductSerializer(ModelSerializer):
 	class Meta:
@@ -13,10 +13,21 @@ class ServiceSerializer(ModelSerializer):
 		fields = '__all__'
 
 
-class OrderSerializer(ModelSerializer):
+# class OrderSerializer(ModelSerializer):
+# 	class Meta:
+# 		model = Order
+# 		fields = '__all__'
+
+class StoreOrderSerializer(ModelSerializer):
 	class Meta:
-		model = Order
+		model = StoreOrder
 		fields = '__all__'
+
+
+class VendorOrderSerializer(ModelSerializer):
+	class Meta:
+		model = VendorOrder
+		fields = ("payee_name", "id","payment_type", "quantity", "created", "status", "products", "payer_email", "payer_name", "payer_id", "purchase_amount")
 
 
 class StoreSerializer(ModelSerializer):
