@@ -260,6 +260,29 @@ class PatchStoreView(generics.ListAPIView):
 
 
 
+class PayNowView(APIView):
+    paynow = Paynow(
+    '12884', 
+    '3fba233a-b62e-429a-a9ea-611ad6273e9a',
+    'http://localhost:3000/', 
+    'http://localhost:3000/'
+    )
+
+    payment = paynow.create_payment('Order #123', 'joshua@example.com')
+    payment.add('Bananas', 2.50)
+
+    response = paynow.send_mobile(payment, '0771111111', 'ecocash')
+
+    if(response.success):
+        poll_url = response.poll_url
+
+        print("Poll Url: ", poll_url)
+
+        status = paynow.check_transaction_status(poll_url)
+
+        time.sleep(30)
+
+        print("Payment Status: ", status.status)
 
 
 
@@ -280,21 +303,6 @@ class PatchStoreView(generics.ListAPIView):
 #         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-# paynow = Paynow(
-#     '12884', 
-#     '3fba233a-b62e-429a-a9ea-611ad6273e9a',
-#     'http://google.com', 
-#     'http://google.com'
-#     )
-
-# payment = paynow.create_payment('Order #100', 'test@example.com')
-
-# payment.add('Bananas', 2.50)
-# payment.add('Apples', 3.40)
-
-# response = paynow.send(payment)
 
 
 

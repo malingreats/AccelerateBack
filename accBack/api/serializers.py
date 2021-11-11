@@ -4,7 +4,7 @@ from .models import Product,Service, Store, StoreOrder, VendorOrder
 class ProductSerializer(ModelSerializer):
 	class Meta:
 		model = Product
-		fields = ("id", "store", "owner", "name", "desc", "category", "price", "discount", "quantity", "tags", "rating", "date_created", "is_stocked")
+		fields = '__all__'
 
 
 class ServiceSerializer(ModelSerializer):
