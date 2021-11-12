@@ -11,6 +11,11 @@ django-cors-headers = "*"
 pillow = "*"
 django-filter = "*"
 paynow = "*"
+dj-database-url = "*"
+whitenoise = "*"
+django-heroku = "*"
+python-decouple = "*"
+gunicorn = "*"
 
 [dev-packages]
 
