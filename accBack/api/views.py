@@ -248,7 +248,7 @@ class PatchStoreView(generics.ListAPIView):
 
         qs.name = data.get('name', qs.name)
         qs.sdg_goals = data.get('sdg_goals', qs.sdg_goals)
-        qs.store_logo = data.get('store_logo', qs.store_logo)
+        # qs.store_logo = data.get('store_logo', qs.store_logo)
         qs.desc = data.get('desc', qs.desc)
         qs.category = data.get('category', qs.category)
 
@@ -260,29 +260,29 @@ class PatchStoreView(generics.ListAPIView):
 
 
 
-class PayNowView(APIView):
-    paynow = Paynow(
-    '12884', 
-    '3fba233a-b62e-429a-a9ea-611ad6273e9a',
-    'http://localhost:3000/', 
-    'http://localhost:3000/'
-    )
+# class PayNowView(APIView):
+#     paynow = Paynow(
+#     '12884', 
+#     '3fba233a-b62e-429a-a9ea-611ad6273e9a',
+#     'http://localhost:3000/', 
+#     'http://localhost:3000/'
+#     )
 
-    payment = paynow.create_payment('Order #123', 'joshua@example.com')
-    payment.add('Bananas', 2.50)
+#     payment = paynow.create_payment('Order #123', 'joshua@example.com')
+#     payment.add('Bananas', 2.50)
 
-    response = paynow.send_mobile(payment, '0771111111', 'ecocash')
+#     response = paynow.send_mobile(payment, '0771111111', 'ecocash')
 
-    if(response.success):
-        poll_url = response.poll_url
+#     if(response.success):
+#         poll_url = response.poll_url
 
-        print("Poll Url: ", poll_url)
+#         print("Poll Url: ", poll_url)
 
-        status = paynow.check_transaction_status(poll_url)
+#         status = paynow.check_transaction_status(poll_url)
 
-        time.sleep(30)
+#         time.sleep(30)
 
-        print("Payment Status: ", status.status)
+#         print("Payment Status: ", status.status)
 
 
 

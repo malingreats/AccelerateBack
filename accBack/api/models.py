@@ -6,8 +6,8 @@ from django.dispatch import receiver
 from datetime import timedelta
 from users.models import Profile
 
-def upload_to(instance, filename):
-	return filename.format(filename=filename)
+# def upload_to(instance, filename):
+# 	return filename.format(filename=filename)
 
 class Store(models.Model):
 
@@ -25,7 +25,7 @@ class Store(models.Model):
 	category = models.CharField(max_length=255, null=True, blank=True)
 	desc = models.CharField(max_length=255, null=True, blank=True)
 	sdg_goals = models.CharField(max_length=75,null=True, blank=True, default = 'One')
-	store_logo = models.ImageField(upload_to=upload_to, blank=True, null=True)
+	# store_logo = models.ImageField(upload_to=upload_to, blank=True, null=True)
 	rating = models.FloatField(null=True, blank=True, default=0.0)
 
 	def __str__(self):
@@ -67,7 +67,7 @@ class Product(models.Model):
 	rating = models.FloatField(null=True, blank=True, default=0.0)
 	date_created = models.DateTimeField(auto_now_add=True)
 	is_stocked = models.BooleanField(default=True, blank=True)
-	product_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+	# product_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
 
 	def __str__(self):
 		return str(self.name)
@@ -95,7 +95,7 @@ class Service(models.Model):
 	rating = models.FloatField(null=True, blank=True, default=0.0)
 	date_created = models.DateTimeField(auto_now_add=True)
 	availability = models.BooleanField(default=True, blank=True)
-	service_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+	# service_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
 
 
 	def __str__(self):

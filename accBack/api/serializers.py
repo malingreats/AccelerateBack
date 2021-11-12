@@ -27,8 +27,8 @@ class StoreOrderSerializer(ModelSerializer):
 class VendorOrderSerializer(ModelSerializer):
 	class Meta:
 		model = VendorOrder
-		fields = ("payee_name", "id","payment_type", "quantity", "created", "status", "products", "payer_email", "payer_name", "payer_id", "purchase_amount")
-
+		# fields = ("payee_name", "id","payment_type", "quantity", "created", "status", "products", "payer_email", "payer_name", "payer_id", "purchase_amount")
+		fields = '__all__'
 
 class StoreSerializer(ModelSerializer):
 	class Meta:

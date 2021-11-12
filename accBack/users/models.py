@@ -16,7 +16,7 @@ class Profile(models.Model):
 	is_vendor = models.BooleanField(null=True, default=False)
 	is_customer = models.BooleanField(null=True, default=False)
 	time_added = models.DateTimeField(auto_now_add=True, null=True)
-	profile_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
+	# profile_image = models.ImageField(upload_to=upload_to, blank=True, null=True)
 	phone = models.CharField(max_length=20, null=True, blank=True)
 	location = models.CharField(max_length=100, null=True, blank=True)
 	bio = models.TextField(null=True, blank=True)
