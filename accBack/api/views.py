@@ -248,7 +248,7 @@ class PatchStoreView(generics.ListAPIView):
 
         qs.name = data.get('name', qs.name)
         qs.sdg_goals = data.get('sdg_goals', qs.sdg_goals)
-        # qs.store_logo = data.get('store_logo', qs.store_logo)
+        qs.store_logo = data.get('store_logo', qs.store_logo)
         qs.desc = data.get('desc', qs.desc)
         qs.category = data.get('category', qs.category)
 
