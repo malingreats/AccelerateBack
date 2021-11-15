@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 import dj_database_url
-# import django_heroku
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -124,25 +124,25 @@ WSGI_APPLICATION = 'accBack.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'ciba',
-            
-#         }
-#     }
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'defaultdb',
-        'USER': 'doadmin',
-        'HOST': 'db-postgresql-nyc3-72635-do-user-10250363-0.b.db.ondigitalocean.com',
-        'PASSWORD': '3onXCiypDMX8Ofae',
-        'PORT': '5432',
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ciba',
+            
+        }
     }
-}
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'defaultdb',
+#         'USER': 'doadmin',
+#         'HOST': 'db-postgresql-nyc3-72635-do-user-10250363-0.b.db.ondigitalocean.com',
+#         'PASSWORD': '3onXCiypDMX8Ofae',
+#         'PORT': '5432',
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -203,4 +203,4 @@ MEDIA_URL = '/media/'
 
 
 ### THIS SHOULD BE LAST
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
