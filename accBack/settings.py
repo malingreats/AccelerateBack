@@ -137,11 +137,10 @@ WSGI_APPLICATION = 'accBack.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': credentials.get('db_name', ''),
-        'NAME': "goodshop_production_db_00",
-        'USER': credentials.get('db_user', ''),
-        'HOST': credentials.get('db_host', ''),
-        'PASSWORD': credentials.get('db_password', ''),
+        'NAME': 'defaultdb',
+        'USER': 'doadmin',
+        'HOST': 'db-postgresql-nyc3-72635-do-user-10250363-0.b.db.ondigitalocean.com',
+        'PASSWORD': '3onXCiypDMX8Ofae',
         'PORT': '5432',
     }
 }
