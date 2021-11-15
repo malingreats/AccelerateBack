@@ -1,9 +1,10 @@
 from pathlib import Path
 import os
-import dj_database_url
-import django_heroku
+# import dj_database_url
+# import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from env import credentials
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 from datetime import timedelta
@@ -124,14 +125,26 @@ WSGI_APPLICATION = 'accBack.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'ciba',
+            
+#         }
+#     }
+
+
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ciba',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': credentials.get('db_name', ''),
+        'NAME': "goodshop_production_db_00",
+        'USER': credentials.get('db_user', ''),
+        'HOST': credentials.get('db_host', ''),
+        'PASSWORD': credentials.get('db_password', ''),
+        'PORT': '5432',
     }
-
-
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
