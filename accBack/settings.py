@@ -205,4 +205,4 @@ MEDIA_URL = '/media/'
 
 
 ### THIS SHOULD BE LAST
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
