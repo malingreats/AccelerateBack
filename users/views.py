@@ -29,7 +29,7 @@ class RetrieveUserView(APIView):
 class ProfilesView(APIView):
 
 	def get(self, request, *args, **kwargs):
-		qs = Profile.objects.all()
+		qs = Profile.objects.all().order_by(-time_added)
 		serializer = ProfileSerializer(qs, many=True)
 		return Response(serializer.data)
 
