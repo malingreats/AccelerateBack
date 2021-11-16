@@ -218,6 +218,13 @@ def getStores(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def getRealStores(request):
+    qs = Store.objects.all()
+    qs = Store.objects.filter(vendor__is_vendor=True)
+    serializer = StoreSerializer(qs, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def getSingleStore(request, pk):
     qs = Store.objects.get(id=pk)
     serializer = StoreSerializer(qs, many=False) 

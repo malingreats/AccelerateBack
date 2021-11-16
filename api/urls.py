@@ -37,6 +37,7 @@ urlpatterns = [
 
 
 	path('stores/', views.getStores, name='stores'),
+	path('real-stores', views.getRealStores, name='real-stores'),
 	path('single-store/<str:pk>', views.getSingleStore, name='single-store'),
 	path('search-store/', SearchStoreView.as_view(), name='search-store'),
 	path('search-sdg-store/', SearchSDGStoreView.as_view(), name='search-sdg-store'),
