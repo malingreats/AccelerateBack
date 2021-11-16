@@ -29,7 +29,7 @@ class Profile(models.Model):
 		return str(self.full_name)
 
 	class Meta:
-		ordering = ('-time_added')
+		ordering = ('-time_added',)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

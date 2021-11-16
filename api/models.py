@@ -73,7 +73,7 @@ class Product(models.Model):
 		return str(self.name)
 
 	class Meta:
-		ordering = ('-date_created')
+		ordering = ('-date_created',)
 
 
 class Service(models.Model):
@@ -105,7 +105,7 @@ class Service(models.Model):
 		return str(self.name)
 
 	class Meta:
-		ordering = ('-date_created')
+		ordering = ('-date_created',)
 
 
 # class Order(models.Model):
@@ -160,4 +160,4 @@ class VendorOrder(models.Model):
 		return str(self.id)
 
 	class Meta:
-		ordering = ('-created')
+		ordering = ('-created',)
