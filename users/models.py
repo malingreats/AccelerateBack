@@ -58,16 +58,13 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 class BillingAddress(models.Model):
-	name = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
-	address_id = models.CharField(max_length=200, blank=True, null=True)
-	destination = models.CharField(max_length=20, null=True, blank=True)
+	name = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 	building = models.CharField(max_length=200, null=True, blank=True)
 	street = models.CharField(max_length=250, null=True, blank=True)
 	city = models.CharField(max_length=100, null=True, blank=True)
 	state = models.CharField(max_length=200, null=True, blank=True)
 	country = models.CharField(max_length=200, null=True, blank=True)
 	post = models.CharField(max_length=25, default=0000, null=True, blank=True)
-	phone = models.CharField(max_length=45, default=00000, null=True, blank=True)
 	isDefault = models.BooleanField(default=True, blank=True)
 
 	def __str__(self):

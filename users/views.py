@@ -107,12 +107,12 @@ class VendorProfilesView(generics.ListAPIView):
 
 
 
-class BillingAddressView(APIView):
+class BillingAddressView(generics.ListAPIView):
+	serializer_class = BillingAddressSerializer
 
-	def get(self, request, *args, **kwargs):
-		qs = BillingAddress.objects.all()
-		serializer = BillingAddressSerializer(qs, many=True)
-		return Response(serializer.data)
+	def get_queryset(self):
+		name = self.request.query_params.get(name=name)
+		return BillingAddress.objects.filter(name=name)
 
 	def post(self, request, format=None):
 		serializer = BillingAddressSerializer(data = request.data)

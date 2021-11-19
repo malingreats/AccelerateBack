@@ -14,7 +14,7 @@ class ProfileAdmin(admin.ModelAdmin):
 class BillingAddressAdmin(admin.ModelAdmin):
     search_fields = ("name",)
     
-    list_display = ("id", "name", "destination", "building", "street", "city", "state", "country", "post", "phone", "isDefault" )
+    list_display = ("id", "name", "building", "street", "city", "state", "country", "post", "isDefault" )
 
 
 
