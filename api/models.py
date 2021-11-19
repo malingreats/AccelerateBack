@@ -143,7 +143,8 @@ class StoreOrder(models.Model):
 
 class VendorOrder(models.Model):
 
-	payee_name = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+	payee_name = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
+	customer = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 	payment_type = models.CharField(max_length=50, null=True, blank=True)
 	quantity= models.IntegerField(null=True, blank=True, default=0)
 	created = models.DateTimeField(auto_now_add=True)

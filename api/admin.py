@@ -48,7 +48,7 @@ class StoreOrderAdmin(admin.ModelAdmin):
 class VendorOrderAdmin(admin.ModelAdmin):
     search_fields = ("payee_name",)
     
-    list_display = ("payee_name", "id","payment_type", "quantity", "created", "status", "products", "payer_email", "payer_name", "payer_id", "purchase_amount")
+    list_display = ("payee_name", "id","payment_type", "quantity", "created", "status", "products", "payer_email", "payer_name", "payer_id", "purchase_amount", "customer")
 
 
 

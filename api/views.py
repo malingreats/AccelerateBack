@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import filters
 from paynow import Paynow
+from datetime import datetime
 
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -170,6 +171,8 @@ def addOrder(request):
 @api_view(['GET'])
 def getVendorOrders(request):
     qs = VendorOrder.objects.all()
+    for q in qs :
+        q.created = q.created.strftime('%B')
     serializer = VendorOrderSerializer(qs, many=True)
     return Response(serializer.data)
 
@@ -181,6 +184,13 @@ class DashboardOrderView(generics.ListAPIView):
         payee_name = self.request.query_params.get('payee_name', None)
         print(payee_name)
         return VendorOrder.objects.filter(payee_name=payee_name)
+
+
+class CustomerOrderView(generics.ListAPIView):
+    queryset = VendorOrder.objects.all()
+    serializer_class = VendorOrderSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['^payer_name']
 
 
 class ParticularOrdersView(generics.ListAPIView):
