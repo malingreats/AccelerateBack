@@ -69,6 +69,17 @@ class ProfileView(APIView):
 
 		return Response(serializer.data)
 
+
+class PatchProfileOrderView(APIView):
+	def patch(self, request, pk):
+		qs = Profile.objects.get(id=pk)
+
+		qs.orders += 1
+		qs.save()
+		serializer = ProfileSerializer(qs)
+
+		return Response(serializer.data)
+
 class ParticularProfileView(generics.ListAPIView):
     serializer_class = ProfileSerializer
 
