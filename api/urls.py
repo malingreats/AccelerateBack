@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import MyTokenObtainPairView, ParticularProductsView, ParticularServicesView, PatchStoreView, SearchStoreView, SearchSDGStoreView, ParticularOrdersView, DashboardOrderView, CustomerOrderView
+from .views import MyTokenObtainPairView, ParticularProductsView, ParticularServicesView, PatchStoreView, SearchStoreView, SearchSDGStoreView, ParticularOrdersView, DashboardOrderView, CustomerOrderView, ChartBarDataView
 
 
 from rest_framework_simplejwt.views import (
@@ -34,6 +34,8 @@ urlpatterns = [
 	path('vendor-order/', ParticularOrdersView.as_view(), name='vendor-order'),
 	path('dash-vendor-order/', DashboardOrderView.as_view(), name='dash-vendor-order'),
 	path('customer-vendor-order/', CustomerOrderView.as_view(), name='customer-vendor-order'),
+
+	path('chartbar-data/<str:payee_name>', ChartBarDataView.as_view(), name='chartbar-data'),
 
 
 
