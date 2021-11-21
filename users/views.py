@@ -106,6 +106,23 @@ class VendorProfilesView(generics.ListAPIView):
 # 		return Response(serializer.data)
 
 
+class MyCustomersView(generics.ListAPIView):
+	serializer_class = ProfileSerializer
+
+	def get(self, request, pk):
+		profile = Profile.objects.get(id=pk)
+		qs = profile.customer.all()
+
+		customer = []
+		for q in qs:
+			cus = Profile.objects.filter(user=q)
+			print(cus[0])
+			customer.append(cus[0])
+		serializer = ProfileSerializer(customer, many=True)
+		return Response(serializer.data)
+
+
+
 
 class BillingAddressView(generics.ListAPIView):
 	serializer_class = BillingAddressSerializer

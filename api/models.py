@@ -27,6 +27,7 @@ class Store(models.Model):
 	sdg_goals = models.CharField(max_length=75,null=True, blank=True, default = 'One')
 	store_logo = models.ImageField(upload_to=upload_to, blank=True, null=True)
 	rating = models.FloatField(null=True, blank=True, default=0.0)
+	is_approved = models.BooleanField(blank=True, default=False)
 
 	def __str__(self):
 		return str(self.name)

@@ -24,6 +24,7 @@ class Profile(models.Model):
 	address = models.CharField(max_length=100, null=True, blank=True)
 	email = models.EmailField(max_length=100, null=True, blank=True)
 	orders = models.IntegerField(null=True, blank=True, default=0)
+	customers = models.ManyToManyField(User, related_name='customers')
 
 	def __str__(self):
 		return str(self.full_name)
