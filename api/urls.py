@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import MyTokenObtainPairView, ParticularProductsView, ParticularServicesView, PatchStoreView, SearchStoreView, SearchSDGStoreView, ParticularOrdersView, DashboardOrderView, CustomerOrderView, ChartBarDataView
+from .views import MyTokenObtainPairView, ParticularProductsView, ParticularServicesView, PatchStoreView, SearchStoreView, SearchSDGStoreView, ParticularOrdersView, DashboardOrderView, CustomerOrderView, ChartBarDataView, PatchProductQuantityView
 
 
 from rest_framework_simplejwt.views import (
@@ -17,6 +17,7 @@ urlpatterns = [
 	path('delete-product/<str:pk>/', views.deleteProduct, name='delete-product'),
 	path('add-products/', views.addProducts, name='add-products'),
 	path('get-products/', ParticularProductsView.as_view(), name='get-producs'),
+	path('patch-product-quantity/<str:pk>', PatchProductQuantityView.as_view(), name='patch-product-quantity'),
 
 
 	path('services', views.getServices, name='services'),

@@ -71,6 +71,19 @@ class ParticularProductsView(generics.ListAPIView):
         return Product.objects.filter(store=store)
 
 
+# Decrese Product quantity after Sale
+# Needs Fixing
+class PatchProductQuantityView(APIView):
+    def patch(self, request, pk):
+        qs = Product.objects.get(id=pk)
+        data = request.data
+        quant = data.get('quantity')
+
+        qs.quantity -+ quant
+        qs.save()
+        serializer = ProductSerializer(qs)
+        return Response(serializer.data)
+
 @api_view(['DELETE'])
 def deleteProduct(request, pk):
     product = Product.objects.get(id=pk)
