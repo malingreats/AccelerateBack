@@ -127,6 +127,9 @@ class MyCustomersView(generics.ListAPIView):
 		customer = []
 		for q in qs:
 			cus = Profile.objects.filter(user=q)
+			for cu in cus:
+				cu.time_added = cu.time_added.strftime("%m/%d%Y")
+				print(cu.time_added)
 			print(cus[0])
 			customer.append(cus[0])
 		serializer = ProfileSerializer(customer, many=True)
