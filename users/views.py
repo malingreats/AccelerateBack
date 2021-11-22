@@ -133,6 +133,29 @@ class MyCustomersView(generics.ListAPIView):
 		return Response(serializer.data)
 
 
+class AddCustomerView(generics.ListAPIView):
+	serializer_class = ProfileSerializer
+
+	def post(self,request):
+		order = request.order
+
+		payee_name = order.get('payee_name')
+		payer_name = order.get('payer_name')
+		customer = order.get('customer')
+
+		profile = Profile.objects.get(id=payee_name)
+		qs = profile.customers.all()
+
+		for q in qs:
+			if str(q) == str(payer_name):
+				print("Already a Customer")
+				return 1
+
+		profile.customers.add(customer)
+		print("Customer Added")
+		return Response(order)
+
+
 
 
 class BillingAddressView(generics.ListAPIView):
