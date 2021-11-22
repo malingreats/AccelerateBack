@@ -122,7 +122,7 @@ class MyCustomersView(generics.ListAPIView):
 
 	def get(self, request, pk):
 		profile = Profile.objects.get(id=pk)
-		qs = profile.customer.all()
+		qs = profile.customers.all()
 
 		customer = []
 		for q in qs:
@@ -140,7 +140,7 @@ class AddCustomerView(generics.ListAPIView):
 	serializer_class = ProfileSerializer
 
 	def post(self,request):
-		order = request.order
+		order = request.data
 
 		payee_name = order.get('payee_name')
 		payer_name = order.get('payer_name')
@@ -165,7 +165,7 @@ class BillingAddressView(generics.ListAPIView):
 	serializer_class = BillingAddressSerializer
 
 	def get_queryset(self):
-		name = self.request.query_params.get(name=name)
+		name = self.request.query_params.get('name', None)
 		return BillingAddress.objects.filter(name=name)
 
 	def post(self, request, format=None):

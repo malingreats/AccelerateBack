@@ -233,8 +233,8 @@ class ChartBarDataView(generics.ListAPIView):
     serializer_class = VendorOrderSerializer
 
     def get(self, request, payee_name):
-        data = [0,0,0,0,0,0,0,0,0,0,0,0,0]
-        nmonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        data = [0,1,2,3,4,5,6,7,8,9,10,11,12]
+        nmonths = ['None', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         months = [0,1,2,3,4,5,6,7,8,9,10,11,12]
         myObj = VendorOrder.objects.filter(payee_name=payee_name)
         
@@ -243,7 +243,7 @@ class ChartBarDataView(generics.ListAPIView):
             myObj = VendorOrder.objects.filter(payee_name=payee_name)
 
             for obj in myObj:
-                qs = myObj.filter(created_month=month)
+                qs = myObj.filter(created__month=month)
                 total = 0
 
                 for q in qs:
