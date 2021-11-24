@@ -11,14 +11,6 @@ def upload_to(instance, filename):
 
 class Store(models.Model):
 
-	# SDG_One = 'SDG_One'
-	# SDG_Two = 'SDG_Two'
-	# SDG_Three = 'SDG_Three'
-	# SDG_GOALS = [
-	# 	(SDG_Two, 'SDG_Two'),
-	# 	(SDG_One, 'SDG_One'),
-	# 	(SDG_Three, 'SDG_Three'),
-	# ]   
 
 	vendor = models.OneToOneField(Profile, null=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=128,blank=False)
@@ -28,6 +20,9 @@ class Store(models.Model):
 	store_logo = models.ImageField(upload_to=upload_to, blank=True, null=True)
 	rating = models.FloatField(null=True, blank=True, default=0.0)
 	is_approved = models.BooleanField(blank=True, default=False)
+	products = models.ManyToManyField('Product', related_name='products', blank=True)
+	services = models.ManyToManyField('Service', related_name='services', blank=True)
+
 
 	def __str__(self):
 		return str(self.name)
