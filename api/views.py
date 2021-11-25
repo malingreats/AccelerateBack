@@ -228,18 +228,36 @@ class ParticularOrdersView(generics.ListAPIView):
         return total
 
 
+class PatchOrderView(generics.ListAPIView):
+
+    def patch(self, request, pk):
+        qs = VendorOrder.objects.get(id=pk)
+        data = request.data
+        qs.status = data.get('status', qs.status)
+
+        qs.save()
+        serializer = VendorOrderSerializer(qs)
+
+        return Response(serializer.data)
+
+
+
 
 class ChartBarDataView(generics.ListAPIView):
     serializer_class = VendorOrderSerializer
 
     def get(self, request, payee_name):
-        data = [0,1,2,3,4,5,6,7,8,9,10,11,12]
-        nmonths = ['None', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-        months = [0,1,2,3,4,5,6,7,8,9,10,11,12]
+        data = []
+        # nmonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        months = []
+        for x in range(1,13):
+            # data.append(x)
+            months.append(x)
+
         myObj = VendorOrder.objects.filter(payee_name=payee_name)
         
         for month in months:
-            print(nmonths[month])
+            # print(nmonths[month])
             myObj = VendorOrder.objects.filter(payee_name=payee_name)
 
             for obj in myObj:
@@ -250,9 +268,55 @@ class ChartBarDataView(generics.ListAPIView):
                     total += q.quantity * q.purchase_amount
 
             print(total)
-            data[month] = total
+            data.append(total)
 
         return Response(data)
+
+class PopularCardDataView(generics.ListAPIView):
+    serializer_class = VendorOrderSerializer
+
+    def get(self, request, payee_name):
+        data = []
+        nweeks =[]
+        weeks =[]
+        myObj = VendorOrder.objects.filter(payee_name=payee_name)
+        for obj in myObj:
+            obj.created = obj.created.strftime('%V')
+            print(obj.created)
+        for x in range(1,53):
+            # data.append(x)
+            weeks.append(x)
+
+        for week in weeks:
+            print('Week ', week)
+            qs = []
+             # myObj = VendorOrder.objects.filter(payee_name=payee_name)
+            for obj in myObj:
+                print('created', myObj[0].created)
+
+                qs = myObj.filter(created__week=week)
+                print('QS', qs)
+                total = 0
+                for q in qs:
+                    total += q.quantity * q.purchase_amount
+            print(total)
+            data.append(total)
+
+        return Response(data)
+
+        # for q in qs :
+            
+        #     q.created = q.created.strftime('%V')
+        #     print(q.created.strftime('%V'))
+
+        # for d in data:
+        #     for q in qs :
+        #         total = 0
+        #         if q.created == d:
+        #              total += q.quantity * q.purchase_amount
+
+        #         pass
+        # print(data)
 
 
 

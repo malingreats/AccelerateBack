@@ -25,13 +25,14 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = User
-		fields = ('username', 'password', 'password2', 'email', 'last_name')
+		fields = ('username', 'password', 'password2', 'email', 'last_name', 'first_name')
 
 	def create(self, validated_data):
 		user = User.objects.create(
 			username=validated_data['username'],
 			email=validated_data['email'],
-			last_name=validated_data['last_name']
+			last_name=validated_data['last_name'],
+			first_name=validated_data['first_name']
 		)
 
 		user.set_password(validated_data['password'])
@@ -44,7 +45,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 			user.profile.is_vendor = True
 			user.save()
 			print('Vendor', user.profile.is_vendor)
-		else:
+		elif validated_data['first_name'] == 'customer':
 			user.profile.is_customer = True
 			user.save()
 			print('Customer', user.profile.is_customer)

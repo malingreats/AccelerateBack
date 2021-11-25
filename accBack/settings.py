@@ -117,12 +117,12 @@ WSGI_APPLICATION = 'accBack.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # DATABASES = {
 #         'default': {
@@ -133,16 +133,16 @@ WSGI_APPLICATION = 'accBack.wsgi.application'
 #     }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'defaultdb',
-        'USER': 'doadmin',
-        'HOST': 'db-postgresql-nyc3-72635-do-user-10250363-0.b.db.ondigitalocean.com',
-        'PASSWORD': '3onXCiypDMX8Ofae',
-        'PORT': '25060',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'defaultdb',
+#         'USER': 'doadmin',
+#         'HOST': 'db-postgresql-nyc3-72635-do-user-10250363-0.b.db.ondigitalocean.com',
+#         'PASSWORD': '3onXCiypDMX8Ofae',
+#         'PORT': '25060',
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
