@@ -377,6 +377,39 @@ class PatchStoreView(generics.ListAPIView):
         return Response(serializer.data)
 
 
+class AddProductToStoreView(generics.ListAPIView):
+    serializer_class = StoreSerializer
+
+    def post(self,request):
+        product = request.data
+
+        store = product.get('store')
+        name = product.get('name')
+
+        queryset = Store.objects.get(id=store)
+        qs = queryset.products.all()
+
+        queryset.products.add(name)
+        print("Product Added")
+        return Response(product)
+
+
+
+class AddServiceToStoreView(generics.ListAPIView):
+    serializer_class = StoreSerializer
+
+    def post(self,request):
+        service = request.data
+
+        store = service.get('store')
+        name = service.get('name')
+
+        queryset = Store.objects.get(id=store)
+        qs = queryset.services.all()
+
+        queryset.services.add(name)
+        print("Services Added")
+        return Response(product)
 
 
 # class PayNowView(APIView):
