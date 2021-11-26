@@ -22,6 +22,7 @@ class Store(models.Model):
 	is_approved = models.BooleanField(blank=True, default=False)
 	products = models.ManyToManyField('Product', related_name='products', blank=True)
 	services = models.ManyToManyField('Service', related_name='services', blank=True)
+	date_created = models.DateTimeField(auto_now_add=True)
 
 
 	def __str__(self):

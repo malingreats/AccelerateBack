@@ -9,6 +9,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import filters
 from paynow import Paynow
 from datetime import datetime
+from django.contrib.humanize.templatetags.humanize import naturalday
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -326,6 +328,9 @@ class PopularCardDataView(generics.ListAPIView):
 @api_view(['GET'])
 def getStores(request):
     qs = Store.objects.all()
+    for q in qs :
+        q.date_created = naturaltime(q.date_created)
+        print(q.date_created)
     serializer = StoreSerializer(qs, many=True)
     return Response(serializer.data)
 
@@ -333,6 +338,9 @@ def getStores(request):
 def getRealStores(request):
     qs = Store.objects.all()
     qs = Store.objects.filter(vendor__is_vendor=True)
+    for q in qs :
+        q.date_created = naturaltime(q.date_created)
+        print(q.date_created)
     serializer = StoreSerializer(qs, many=True)
     return Response(serializer.data)
 
@@ -373,8 +381,24 @@ class PatchStoreView(generics.ListAPIView):
 
         qs.save()
         serializer = StoreSerializer(qs)
-
         return Response(serializer.data)
+
+
+
+class PatchStoreApprovalView(generics.ListAPIView):
+
+
+    def patch(self, request, pk):
+        qs = Store.objects.get(id=pk)
+        data = request.data
+
+        qs.is_approved = data.get('is_approved', qs.is_approved)
+
+        qs.save()
+        serializer = StoreSerializer(qs)
+        return Response(serializer.data)
+
+
 
 
 class AddProductToStoreView(generics.ListAPIView):
@@ -390,7 +414,7 @@ class AddProductToStoreView(generics.ListAPIView):
         qs = queryset.products.all()
 
         queryset.products.add(name)
-        print("Product Added")
+        print("ProductAdded")
         return Response(product)
 
 
