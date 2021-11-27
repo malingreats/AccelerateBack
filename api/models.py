@@ -15,7 +15,7 @@ class Store(models.Model):
 	vendor = models.OneToOneField(Profile, null=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=128,blank=False)
 	category = models.CharField(max_length=255, null=True, blank=True)
-	desc = models.CharField(max_length=255, null=True, blank=True)
+	desc = models.TextField(null=True, blank=True)
 	sdg_goals = models.CharField(max_length=75,null=True, blank=True, default = 'One')
 	store_logo = models.ImageField(upload_to=upload_to, blank=True, null=True)
 	rating = models.FloatField(null=True, blank=True, default=0.0)
