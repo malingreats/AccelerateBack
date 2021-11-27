@@ -85,7 +85,7 @@ class ParticularProfileView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.query_params.get('user', None)
-        print(user)
+        # print(user)
         return Profile.objects.filter(user=user)
 
 
@@ -94,7 +94,7 @@ class VendorProfilesView(generics.ListAPIView):
 
 	def get_queryset(self):
 		is_vendor = self.request.query_params.get('is_vendor', None)
-		print(is_vendor)
+		# print(is_vendor)
 		return Profile.objects.filter(is_vendor=is_vendor)
 
 # 	def get_queryset(self):
@@ -129,8 +129,8 @@ class MyCustomersView(generics.ListAPIView):
 			cus = Profile.objects.filter(user=q)
 			for cu in cus:
 				cu.time_added = cu.time_added.strftime("%m/%d%Y")
-				print(cu.time_added)
-			print(cus[0])
+				# print(cu.time_added)
+			# print(cus[0])
 			customer.append(cus[0])
 		serializer = ProfileSerializer(customer, many=True)
 		return Response(serializer.data)
@@ -151,11 +151,11 @@ class AddCustomerView(generics.ListAPIView):
 
 		for q in qs:
 			if str(q) == str(payer_name):
-				print("Already a Customer")
+				# print("Already a Customer")
 				return 1
 
 		profile.customers.add(customer)
-		print("Customer Added")
+		# print("Customer Added")
 		return Response(order)
 
 

@@ -69,7 +69,7 @@ class ParticularProductsView(generics.ListAPIView):
 
     def get_queryset(self):
         store = self.request.query_params.get('store', None)
-        print(store)
+        # print(store)
         return Product.objects.filter(store=store)
 
 
@@ -144,7 +144,7 @@ class ParticularServicesView(generics.ListAPIView):
 
     def get_queryset(self):
         store = self.request.query_params.get('store', None)
-        print(store)
+        # print(store)
         return Service.objects.filter(store=store)
 
 
@@ -197,7 +197,7 @@ class DashboardOrderView(generics.ListAPIView):
 
     def get_queryset(self):
         payee_name = self.request.query_params.get('payee_name', None)
-        print(payee_name)
+        # print(payee_name)
         return VendorOrder.objects.filter(payee_name=payee_name)
 
 
@@ -213,18 +213,18 @@ class ParticularOrdersView(generics.ListAPIView):
 
     def get_queryset(self):
         payee_name = self.request.query_params.get('payee_name', None)
-        print(payee_name)
+        # print(payee_name)
         results = VendorOrder.objects.filter(payee_name=payee_name)
 
         total = 0.0
-        print(results)
+        # print(results)
         for result in results:
             # print(result.purchase_amount)
             total = 0.0
             total += result.purchase_amount
         total = str(total)
-        print('total')
-        print(total)
+        # print('total')
+        # print(total)
         # return total
         serializer = total
         return total
@@ -269,7 +269,7 @@ class ChartBarDataView(generics.ListAPIView):
                 for q in qs:
                     total += q.quantity * q.purchase_amount
 
-            print(total)
+            # print(total)
             data.append(total)
 
         return Response(data)
@@ -284,24 +284,24 @@ class PopularCardDataView(generics.ListAPIView):
         myObj = VendorOrder.objects.filter(payee_name=payee_name)
         for obj in myObj:
             obj.created = obj.created.strftime('%V')
-            print(obj.created)
+            # print(obj.created)
         for x in range(1,53):
             # data.append(x)
             weeks.append(x)
 
         for week in weeks:
-            print('Week ', week)
+            # print('Week ', week)
             qs = []
              # myObj = VendorOrder.objects.filter(payee_name=payee_name)
             for obj in myObj:
-                print('created', myObj[0].created)
+                # print('created', myObj[0].created)
 
                 qs = myObj.filter(created__week=week)
-                print('QS', qs)
+                # print('QS', qs)
                 total = 0
                 for q in qs:
                     total += q.quantity * q.purchase_amount
-            print(total)
+            # print(total)
             data.append(total)
 
         return Response(data)
@@ -330,7 +330,7 @@ def getStores(request):
     qs = Store.objects.all()
     for q in qs :
         q.date_created = naturaltime(q.date_created)
-        print(q.date_created)
+        # print(q.date_created)
     serializer = StoreSerializer(qs, many=True)
     return Response(serializer.data)
 
@@ -340,7 +340,7 @@ def getRealStores(request):
     qs = Store.objects.filter(vendor__is_vendor=True)
     for q in qs :
         q.date_created = naturaltime(q.date_created)
-        print(q.date_created)
+        # print(q.date_created)
     serializer = StoreSerializer(qs, many=True)
     return Response(serializer.data)
 
@@ -427,7 +427,7 @@ class AddProductToStoreView(generics.ListAPIView):
         qs = queryset.products.all()
 
         queryset.products.add(name)
-        print("ProductAdded")
+        # print("ProductAdded")
         return Response(product)
 
 
@@ -445,7 +445,7 @@ class AddServiceToStoreView(generics.ListAPIView):
         qs = queryset.services.all()
 
         queryset.services.add(name)
-        print("Services Added")
+        # print("Services Added")
         return Response(product)
 
 
