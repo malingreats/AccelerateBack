@@ -384,6 +384,19 @@ class PatchStoreView(generics.ListAPIView):
         return Response(serializer.data)
 
 
+class PatchStoreLogoView(generics.ListAPIView):
+
+
+    def patch(self, request, pk):
+        qs = Store.objects.get(id=pk)
+        data = request.data
+
+        qs.store_logo = data.get('store_logo', qs.store_logo)
+
+        qs.save()
+        serializer = StoreSerializer(qs)
+        return Response(serializer.data)
+
 
 class PatchStoreApprovalView(generics.ListAPIView):
 
