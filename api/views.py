@@ -58,6 +58,14 @@ def getProducts(request):
     serializer = ProductSerializer(products, many=True) 
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+def getProduct(request, pk):
+    qs = Product.objects.get(id=pk)
+    serializer = ProductSerializer(qs, many=False)
+    return Response(serializer.data)
+
+
 @api_view(['GET'])
 def getAllProducts(request):
     qs = Product.objects.all()
@@ -71,6 +79,15 @@ class ParticularProductsView(generics.ListAPIView):
         store = self.request.query_params.get('store', None)
         # print(store)
         return Product.objects.filter(store=store)
+
+
+class RelatedProductsView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        category = self.request.query_params.get('category', None)
+        # print(store)
+        return Product.objects.filter(category=category)
 
 
 # Decrese Product quantity after Sale

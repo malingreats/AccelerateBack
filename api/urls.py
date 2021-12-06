@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import MyTokenObtainPairView, ParticularProductsView, ParticularServicesView, PatchStoreView, SearchStoreView, SearchSDGStoreView, ParticularOrdersView, DashboardOrderView, CustomerOrderView, ChartBarDataView, PatchProductQuantityView, PopularCardDataView, PatchOrderView, AddProductToStoreView, AddServiceToStoreView, PatchStoreApprovalView, PatchStoreLogoView
+from .views import MyTokenObtainPairView, ParticularProductsView, ParticularServicesView, PatchStoreView, SearchStoreView, SearchSDGStoreView, ParticularOrdersView, DashboardOrderView, CustomerOrderView, ChartBarDataView, PatchProductQuantityView, PopularCardDataView, PatchOrderView, AddProductToStoreView, AddServiceToStoreView, PatchStoreApprovalView, PatchStoreLogoView, RelatedProductsView
 
 
 from rest_framework_simplejwt.views import (
@@ -13,10 +13,12 @@ urlpatterns = [
 
 
 	path('products', views.getProducts, name='products'),
+	path('get-product/<str:pk>', views.getProduct, name='get-product'),
 	path('all-products', views.getAllProducts, name='all-products'),
 	path('delete-product/<str:pk>/', views.deleteProduct, name='delete-product'),
 	path('add-products/', views.addProducts, name='add-products'),
 	path('get-products/', ParticularProductsView.as_view(), name='get-producs'),
+	path('related-products/', RelatedProductsView.as_view(), name='related-producs'),
 	path('patch-product-quantity/<str:pk>', PatchProductQuantityView.as_view(), name='patch-product-quantity'),
 
 
