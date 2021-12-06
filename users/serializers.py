@@ -48,13 +48,13 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 			user.profile.is_vendor = True
 			user.save()
-			body = 'Hello ' + user.username + '\n \n \nWe welcome you to The Good Market \n \n' + 'To continue selling please finish setting up your Store and Personal Profile \n \n' + 'You will receive an email once your account is approved \n \n \n \n' + 'Thank You \n' + 'THE GOODMARKET TEAM \n' + 'https://store.thegoodmarket.io'
+			body = 'Hello ' + user.username + '\n \n \nWe welcome you to The Good Market \n \n' + 'To continue selling please finish setting up your Store and Personal Profile \n \n' + 'You will receive an email once your account is approved \n \n \n \n' + 'Thank You \n' + 'THE GOODMARKET TEAM \n' + ' ' + ' https://store.thegoodmarket.io'
 			send_mail('Welcome', body, 'benjaminnyakambangwe@gmail.com', [user.email], fail_silently=False)
 			print('Vendor', user.profile.is_vendor)
 		elif validated_data['first_name'] == 'customer':
 			user.profile.is_customer = True
 			user.save()
-			body2 = 'Hello ' + user.username + '\n \n \nWe welcome you to The Good Market \n \n' + 'To continue buying please finish setting up your Account \n \n \n' + 'Thank You \n' + 'THE GOODMARKET TEAM \n' + 'https://store.thegoodmarket.io'
+			body2 = 'Hello ' + user.username + '\n \n \nWe welcome you to The Good Market \n \n' + 'To continue buying please finish setting up your Account \n \n \n' + 'Thank You \n' + 'THE GOODMARKET TEAM \n' + ' ' + ' https://store.thegoodmarket.io'
 			send_mail('Welcome', body2, 'benjaminnyakambangwe@gmail.com', [user.email], fail_silently=False)
 			print('Customer', user.profile.is_customer)
 
