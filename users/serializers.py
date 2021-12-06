@@ -7,6 +7,9 @@ from rest_framework.serializers import ModelSerializer
 
 from .models import Profile, BillingAddress
 
+from django.core.mail import send_mail
+
+
 class ProfileSerializer(ModelSerializer):
 	class Meta:
 		model = Profile
@@ -38,16 +41,21 @@ class RegisterSerializer(serializers.ModelSerializer):
 		user.set_password(validated_data['password'])
 		user.save()
 
+
 		# profile_user = Profile.objects.get(user = user)
 		
 		if validated_data['last_name'] == 'vendor':
 
 			user.profile.is_vendor = True
 			user.save()
+			body = 'Hello ' + user.username + '\n \n \nWe welcome you to The Good Market \n \n' + 'To continue selling please finish setting up your Store and Personal Profile \n \n' + 'You will receive an email once your account is approved \n \n \n \n' + 'Thank You \n' + 'THE GOODMARKET TEAM \n' + 'https://store.thegoodmarket.io'
+			send_mail('Welcome', body, 'benjaminnyakambangwe@gmail.com', [user.email], fail_silently=False)
 			print('Vendor', user.profile.is_vendor)
 		elif validated_data['first_name'] == 'customer':
 			user.profile.is_customer = True
 			user.save()
+			body2 = 'Hello ' + user.username + '\n \n \nWe welcome you to The Good Market \n \n' + 'To continue buying please finish setting up your Account \n \n \n' + 'Thank You \n' + 'THE GOODMARKET TEAM \n' + 'https://store.thegoodmarket.io'
+			send_mail('Welcome', body2, 'benjaminnyakambangwe@gmail.com', [user.email], fail_silently=False)
 			print('Customer', user.profile.is_customer)
 
 		return user

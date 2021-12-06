@@ -19,6 +19,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import ProductSerializer, ServiceSerializer, StoreSerializer, VendorOrderSerializer
 from api.models import Product, Service, Store, VendorOrder
 
+from django.core.mail import send_mail
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -114,7 +116,7 @@ def deleteProduct(request, pk):
 def addProducts(request):
     serializer = ProductSerializer(data = request.data)
     if serializer.is_valid():
-        serializer.save()
+        serializer.save()   
     else:
         return Response('serializer not valid')
     return Response(serializer.data)
@@ -465,6 +467,14 @@ class AddServiceToStoreView(generics.ListAPIView):
         # print("Services Added")
         return Response(product)
 
+
+
+
+class SendMailView(generics.ListAPIView):
+    def get(self, request):
+        send_mail('Test Subject', 'Here is the message.', 'benjaminnyakambangwe@gmail.com', ['bennyakambangwe@gmail.com'], fail_silently=False)
+
+        return Response('Email Sent')
 
 # class PayNowView(APIView):
 #     paynow = Paynow(
