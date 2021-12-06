@@ -472,7 +472,7 @@ class AddServiceToStoreView(generics.ListAPIView):
 
 class SendMailView(generics.ListAPIView):
     def get(self, request):
-        send_mail('Test Subject', 'Here is the message.', 'benjaminnyakambangwe@gmail.com', ['bennyakambangwe@gmail.com'], fail_silently=False)
+        send_mail('Test Subject', 'Here is the message.', 'benjaminnyakambangwe@gmail.com', ['bennyakamabangwe@gmail.com'], fail_silently=False)
 
         return Response('Email Sent')
 
