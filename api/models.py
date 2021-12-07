@@ -23,6 +23,7 @@ class Store(models.Model):
 	products = models.ManyToManyField('Product', related_name='products', blank=True)
 	services = models.ManyToManyField('Service', related_name='services', blank=True)
 	date_created = models.DateTimeField(auto_now_add=True)
+	business_type = models.CharField(max_length=255, null=True, blank=True)
 
 
 	def __str__(self):

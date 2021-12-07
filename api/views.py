@@ -385,6 +385,14 @@ class SearchSDGStoreView(generics.ListAPIView):
     search_fields = ['^sdg_goals']
 
 
+class SearchBusinessTypeStoreView(generics.ListAPIView):
+
+    queryset = Store.objects.all()
+    serializer_class = StoreSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['^business_type']
+
+
 class PatchStoreView(generics.ListAPIView):
 
 
@@ -397,6 +405,7 @@ class PatchStoreView(generics.ListAPIView):
         qs.store_logo = data.get('store_logo', qs.store_logo)
         qs.desc = data.get('desc', qs.desc)
         qs.category = data.get('category', qs.category)
+        qs.business_type = data.get('business_type', qs.business_type)
 
         qs.save()
         serializer = StoreSerializer(qs)
