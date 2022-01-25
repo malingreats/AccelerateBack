@@ -136,11 +136,11 @@ WSGI_APPLICATION = 'accBack.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'defaultdb',
-        'USER': 'doadmin',
-        'HOST': 'db-postgresql-nyc3-72635-do-user-10250363-0.b.db.ondigitalocean.com',
-        'PASSWORD': '3onXCiypDMX8Ofae',
-        'PORT': '25060',
+        'NAME': 'goodmarket_prd_db',
+        'USER': 'postgres',
+        'HOST': '206.189.17.229',
+        'PASSWORD': 'postgres',
+        'PORT': '5432',
     }
 }
 # Password validation
