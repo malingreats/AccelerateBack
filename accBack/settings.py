@@ -138,7 +138,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'goodmarket_prd_db',
         'USER': 'postgres',
-        'HOST': '206.189.17.229',
+        'HOST': '75.119.154.13',
         'PASSWORD': 'postgres',
         'PORT': '5432',
     }
