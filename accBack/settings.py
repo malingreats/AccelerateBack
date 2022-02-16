@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--%b3pkt$c3j=7+b$c$%c2f0gfvlc+m1*_xsck6(!%%&tb0-uzd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', '127.0.0.1', 'goodshop-backend-2.herokuapp.com']
 
@@ -137,9 +137,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'goodmarket_prd_db',
-        'USER': 'postgres',
+        'USER': 'accbackendadmin',
         'HOST': '75.119.154.13',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'vmi643828accbackend',
         'PORT': '5432',
     }
 }
