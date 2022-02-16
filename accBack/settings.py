@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 import os
 import dj_database_url
@@ -6,7 +7,6 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-from datetime import timedelta
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure--%b3pkt$c3j=7+b$c$%c2f0gfvlc+m1*_xsck6(!%%&tb0-uzd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','127.0.0.1', 'goodshop-backend-2.herokuapp.com']
+ALLOWED_HOSTS = ['*', '127.0.0.1', 'goodshop-backend-2.herokuapp.com']
 
 
 # Application definition
@@ -128,7 +128,7 @@ WSGI_APPLICATION = 'accBack.wsgi.application'
 #         'default': {
 #             'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #             'NAME': 'ciba',
-            
+
 #         }
 #     }
 
@@ -184,7 +184,6 @@ STATIC_URL = '/static/'
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATIC_URL = '/static/'
 
@@ -199,17 +198,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-
-
-
-
-
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
 EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 
-### THIS SHOULD BE LAST
+# THIS SHOULD BE LAST
 # django_heroku.settings(locals())
