@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--%b3pkt$c3j=7+b$c$%c2f0gfvlc+m1*_xsck6(!%%&tb0-uzd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', '127.0.0.1', 'goodshop-backend-2.herokuapp.com']
 
@@ -200,7 +200,7 @@ MEDIA_URL = '/media/'
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
