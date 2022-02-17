@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--%b3pkt$c3j=7+b$c$%c2f0gfvlc+m1*_xsck6(!%%&tb0-uzd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', '127.0.0.1', 'goodshop-backend-2.herokuapp.com']
 
