@@ -60,8 +60,8 @@ class RegisterSerializer(serializers.ModelSerializer):
                 'You will receive an email once your account is approved \n \n \n \n' + \
                 'Thank You \n' + 'THE GOODMARKET TEAM \n' + \
                 ' ' + ' https://store.thegoodmarket.io'
-            send_mail('Welcome', body, 'benjaminnyakambangwe@gmail.com',
-                      ['bennyakambangwe@gmail.com', user.email], fail_silently=False)
+            send_mail('Welcome', body, 'malingreatsdev@gmail.com',
+                      ['malingreats@gmail.com', user.email], fail_silently=False)
             print('Vendor', user.profile.is_vendor)
         elif validated_data['first_name'] == 'customer':
             user.profile.is_customer = True
@@ -70,8 +70,8 @@ class RegisterSerializer(serializers.ModelSerializer):
                 'To continue buying please finish setting up your Account \n \n \n' + \
                     'Thank You \n' + 'THE GOODMARKET TEAM \n' + \
                 ' ' + ' https://store.thegoodmarket.io'
-            send_mail('Welcome', body2, 'benjaminnyakambangwe@gmail.com',
-                      ['bennyakambangwe@gmail.com', user.email], fail_silently=False)
+            send_mail('Welcome', body2, 'malingreatsdev@gmail.com',
+                      ['malingreats@gmail.com', user.email], fail_silently=False)
             print('Customer', user.profile.is_customer)
 
         return user

@@ -231,8 +231,8 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
             print('Begin')
             print(user)
             print('End')
-            send_mail('Reset Your Password', email_body, 'bennyakambangwe@gmail.com',
-                      ['benjaminnyakambangwe@gmail.com', user.email], fail_silently=False)
+            send_mail('Reset Your Password', email_body, 'malingreatsdev@gmail.com',
+                      ['malingreats@gmail.com', user.email], fail_silently=False)
         return Response({'success': 'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
 
 

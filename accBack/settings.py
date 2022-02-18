@@ -200,7 +200,7 @@ MEDIA_URL = '/media/'
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
