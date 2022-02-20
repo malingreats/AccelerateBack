@@ -13,6 +13,7 @@ from django.urls import reverse
 from .models import Profile, BillingAddress
 
 from django.core.mail import send_mail
+from django.conf import settings
 
 
 class ProfileSerializer(ModelSerializer):
@@ -61,7 +62,7 @@ class RegisterSerializer(serializers.ModelSerializer):
                 'Thank You \n' + 'THE GOODMARKET TEAM \n' + \
                 ' ' + ' https://store.thegoodmarket.io'
             send_mail('Welcome', body, 'malingreatsdev@gmail.com',
-                      ['malingreats@gmail.com', user.email], fail_silently=False)
+                      ['benjaminnyakambangwe@gmail.com', user.email], fail_silently=False)
             print('Vendor', user.profile.is_vendor)
         elif validated_data['first_name'] == 'customer':
             user.profile.is_customer = True
@@ -71,7 +72,7 @@ class RegisterSerializer(serializers.ModelSerializer):
                     'Thank You \n' + 'THE GOODMARKET TEAM \n' + \
                 ' ' + ' https://store.thegoodmarket.io'
             send_mail('Welcome', body2, 'malingreatsdev@gmail.com',
-                      ['malingreats@gmail.com', user.email], fail_silently=False)
+                      ['benjaminnyakambangwe@gmail.com', user.email], fail_silently=False)
             print('Customer', user.profile.is_customer)
 
         return user
@@ -84,40 +85,40 @@ class ResetPasswordEmailRequestSerializer(serializers.Serializer):
         fields = ['email']
 
 
-class SetNewPasswordSerializer(serializers.Serializer):
-    password = serializers.CharField(
-        min_length=6, max_length=68, write_only=True)
-    token = serializers.CharField(
-        min_length=1, write_only=True)
-    uidb64 = serializers.CharField(
-        min_length=1, write_only=True)
+# class SetNewPasswordSerializer(serializers.Serializer):
+#     password = serializers.CharField(
+#         min_length=6, max_length=68, write_only=True)
+#     token = serializers.CharField(
+#         min_length=1, write_only=True)
+#     uidb64 = serializers.CharField(
+#         min_length=1, write_only=True)
 
-    class Meta:
-        fields = ['password', 'token', 'uidb64']
+#     class Meta:
+#         fields = ['password', 'token', 'uidb64']
 
-        def valdate(self, attrs):
-            try:
-                password = attrs.get('password')
-                token = attrs.get('token')
-                uidb64 = attrs.get('uidb64')
+#         def valdate(self, attrs):
+#             try:
+#                 password = attrs.get('password')
+#                 token = attrs.get('token')
+#                 uidb64 = attrs.get('uidb64')
 
-                id = force_str(urlsafe_base64_decode(uidb64))
-                user = User.objects.get(id=id)
+#                 id = force_str(urlsafe_base64_decode(uidb64))
+#                 user = User.objects.get(id=id)
 
-                if not PasswordResetTokenGenerator().check_token(user, token):
-                    raise AuthenticationFailed(
-                        'The reset link is invalid', 401)
+#                 if not PasswordResetTokenGenerator().check_token(user, token):
+#                     raise AuthenticationFailed(
+#                         'The reset link is invalid', 401)
 
-                print('Old')
-                print(user.password)
+#                 print('Old')
+#                 print(user.password)
 
-                user.set_password(password)
-                user.save()
+#                 user.set_password(password)
+#                 user.save()
 
-                print('New')
-                print(user.password)
+#                 print('New')
+#                 print(user.password)
 
-                # return (user)
-            except Exception as e:
-                raise AuthenticationFailed('The reset link is invalid', 401)
-            return super().validate(attrs)
+#                 # return (user)
+#             except Exception as e:
+#                 raise AuthenticationFailed('The reset link is invalid', 401)
+#             return super().validate(attrs)

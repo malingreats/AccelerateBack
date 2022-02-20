@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--%b3pkt$c3j=7+b$c$%c2f0gfvlc+m1*_xsck6(!%%&tb0-uzd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', '127.0.0.1', 'goodshop-backend-2.herokuapp.com']
 
@@ -198,11 +198,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
-EMAIL_HOST_PASSWORD = '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'
-EMAIL_PORT = 587
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
+# EMAIL_HOST_PASSWORD = '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'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'malingreatsdev@gmail.com'
+EMAIL_HOST_PASSWORD = '123456seven'
+EMAIL_USE_SSL = False
 
 
 # THIS SHOULD BE LAST

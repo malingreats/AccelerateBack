@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
 
 from django.core.mail import send_mail
+from django.conf import settings
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
@@ -13,7 +14,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 
-from .serializers import RegisterSerializer, ProfileSerializer, BillingAddressSerializer, ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer
+from .serializers import RegisterSerializer, ProfileSerializer, BillingAddressSerializer, ResetPasswordEmailRequestSerializer
 from .models import Profile, BillingAddress
 
 
@@ -232,8 +233,8 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
             print(user)
             print('End')
             send_mail('Reset Your Password', email_body, 'malingreatsdev@gmail.com',
-                      ['malingreats@gmail.com', user.email], fail_silently=False)
-        return Response({'success': 'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
+                      ['benjaminnyakambangwe@gmail.com', user.email], fail_silently=False)
+            return Response({'success': 'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
 
 
 class PasswordTokenCheckAPI(generics.GenericAPIView):
@@ -254,7 +255,7 @@ class PasswordTokenCheckAPI(generics.GenericAPIView):
 
 
 class SetNewPasswordAPIView(generics.GenericAPIView):
-    serializer_class = SetNewPasswordSerializer
+    # serializer_class = SetNewPasswordSerializer
 
     def patch(self, request):
         # serializer = self.serializer_class(data=request.data)
